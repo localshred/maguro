@@ -27,7 +27,9 @@ module Maguro
   
     def refresh
       @title = @updated = @builds = nil
-      @page = Nokogiri::XML(open(@url))
+      Thread.new do
+        @page = Nokogiri::XML(open(@url))
+      end.join
     end
   
     def title
