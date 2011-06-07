@@ -29,7 +29,15 @@ module Maguro
     end
   
     def title
-      @title ||= @entry.at_css('title').children.to_s
+      @title ||= begin
+        t = @original_title = @entry.at_css('title').children.to_s
+        match = t.match(/Build (\#\d+) \@ ([^-]+) - (SUCCESS|FAILED)/)
+        if match
+          time = Time.parse(match[2])
+          t = '%s at %s' % [match[1], time.strftime('%x %X')]
+        end
+        '%s (%s)' % [t, author]
+      end
     end
   
     def author
@@ -37,11 +45,16 @@ module Maguro
     end
     
     def failed?
-      title =~ /FAILED$/
+      @original_title =~ /FAILED$/
     end
     
     def succeeded?
-      title =~ /SUCCESS$/
+      @original_title =~ /SUCCESS$/
     end
+    
+    def icon_name
+      succeeded? ? 'green' : 'red'
+    end
+
   end
 end
