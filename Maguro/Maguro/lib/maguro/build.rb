@@ -1,5 +1,5 @@
 require 'date'
-require 'maguro/time_util';
+# require 'maguro/time_util' unless defined? Maguro::TimeUtil
 
 =begin
   <entry>

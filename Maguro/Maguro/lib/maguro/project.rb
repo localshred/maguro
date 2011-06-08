@@ -2,8 +2,8 @@ require 'open-uri'
 require 'nokogiri'
 require 'date'
 
-require 'maguro/build'
-require 'maguro/time_util'
+# require 'maguro/build' unless defined? Maguro::Build
+# require 'maguro/time_util' unless defined? Maguro::TimeUtil
 
 =begin
   <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
