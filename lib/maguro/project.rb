@@ -87,16 +87,16 @@ module Maguro
       builds.first.failed?
     end
     
-    def succeeding?
+    def passing?
       !failing?
     end
     
     def status
-      succeeding? ? 'succeeding' : 'failing'
+      passing? ? 'passing' : 'failing'
     end
     
     def icon_name
-      succeeding? ? 'green' : 'red'
+      passing? ? 'green' : 'red'
     end
   
   end

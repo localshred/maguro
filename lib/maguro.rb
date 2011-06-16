@@ -58,11 +58,24 @@ module Maguro
       icon = File.expand_path("assets/#{color}.png", File.dirname(__FILE__))
       menu_item.setImage NSImage.new.initWithContentsOfFile(icon)
     end
+    
+    def show_build_stats
+      count = @projects.count.to_f
+      passing = @projects.select{|p| p.passing? }.count.to_f
+      puts 'count %f' % count
+      puts 'passing %f' % passing
+      ratio = (passing / count) * 100
+      @menu.item '%d%% Passing (%d of %d)' % [ratio.to_i, passing.to_i, count.to_i]
+      @menu.separator
+      2.times do
+        @menu.items.unshift @menu.items.pop
+      end
+    end
   
     def run
+      show_build_stats
       @menu.separator
       @menu.link 'View in Browser', @config[:url]
-      @menu.separator
       @menu.run
     end
   end
